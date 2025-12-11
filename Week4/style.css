@@ -5,6 +5,20 @@
     box-sizing: border-box;
 }
 
+.my-button {
+    background-color: #ff052f; /* สีเขียว */
+    color: white;              /* ตัวหนังสือสีขาว */
+    padding: 15px 25px;        /* จัดระยะห่างภายในให้ดูอ้วนขึ้น */
+    text-align: center;
+    text-decoration: none;     /* เอาขีดเส้นใต้ออก */
+    display: inline-block;
+    border-radius: 5px;        /* ทำมุมมน */
+    margin: 20px;               /* ระยะห่างระหว่างปุ่ม */
+    border: none;
+    cursor: pointer;
+}
+
+
 /* Typography */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,7 +39,7 @@ h1 {
 
 h2 {
     font-size: 2rem;
-    border-bottom: 3px solid #3498db;
+    border-bottom: 3px solid #ff006a;
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
 }
@@ -100,9 +114,10 @@ section:hover {
 
 /* Profile Image */
 #about img {
-    border-radius: 50%;
-    border: 5px solid #db3434;
-    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* เงาสองชั้นเพื่อความลึก */
+    border: 6px solid #ccc; /* กรอบเส้นบางๆ เพื่อความชัดเจน */
+    padding: 10px; /* ให้มีช่องว่างระหว่างรูปกับเงา */
+
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -130,13 +145,13 @@ a {
 }
 
 a:hover {
-    color: #2980b9;
+    color: #ff00bf;
     text-decoration: underline;
 }
 
 /* Contact Section Special Styling */
 #contact {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #ff0000 0%, #cc00ff 100%);
     color: white;
 }
 
@@ -169,15 +184,15 @@ footer p {
 }
 /* Color Variations for Sections */
 #education {
-    border-left: 5px solid #e74c3c;
+    border-left: 5px solid #ae2727;
 }
 
 #hobbies {
-    border-left: 5px solid #f39c12;
+    border-left: 5px solid #ae2727;
 }
 
 #about {
-    border-left: 5px solid #27ae60;
+    border-left: 5px solid #ae2727;
 }
 
 /* Hover Effects */
@@ -186,10 +201,46 @@ section h2 {
 }
 
 section:hover h2 {
-    color: #3498db;
+    color: #ff0000;
 }
 
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
+}
+
+/* style.css */
+
+/* ค่าเริ่มต้น (Light Mode) */
+body {
+  background-color: rgb(250, 211, 211);
+  color: black;
+}
+
+
+/* -------------------------------------- */
+/* ส่วนที่ 1: สไตล์หลัก (Default/Desktop First) */
+/* -------------------------------------- */
+
+#about img {
+    width: 300px;
+
+}
+
+/* -------------------------------------- */
+/* ส่วนที่ 2: Media Queries (ปรับขนาดลงสำหรับ Tablet และ Mobile) */
+/* -------------------------------------- */
+
+@media (max-width: 991px) {
+    /* การปรับสำหรับ Tablet */
+    #about img {
+        width: 250px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* การปรับสำหรับ Mobile */
+    #about img {
+        width: 180px;
+    }
 }
