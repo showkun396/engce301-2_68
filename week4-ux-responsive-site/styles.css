@@ -1,7 +1,15 @@
-
 /* ---------- login page ---------- */
 body {    
-            background-color: #925106;
+        /* กำหนดการไล่ระดับสีจากมุมบนซ้ายไปมุมล่างขวา */
+        background: linear-gradient(to bottom right, #3f2710, #cb9e16); 
+        /* สีเริ่มต้น: #4facfe (ฟ้าเข้ม), สีสิ้นสุด: #00f2fe (ฟ้าอ่อน) */
+    
+        /* ต้องกำหนด min-height ให้ body เต็มจอ เพื่อให้ gradient แสดงผลเต็มพื้นที่ */
+            min-height: 200vh;
+            margin: 0; /* ลบระยะขอบเริ่มต้นของ body ออก */
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             font-family: Arial, sans-serif;
             display: flex;
