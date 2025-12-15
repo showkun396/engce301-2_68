@@ -109,31 +109,12 @@ body {
 }
 /* ---------- 9. Responsive (มือถือ/จอเล็ก) ---------- */
 
+/* Tablet (<= 768px) */
 @media (max-width: 768px) {
-    .site-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        border-radius: 18px;
-    }
+  /* TODO: ลด padding, ทำ card เป็น 2 คอลัมน์ → 1 คอลัมน์ ฯลฯ */
+}
 
-    .hero-section {
-        grid-template-columns: 1fr;
-    }
-
-    .main-nav {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .status-row {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-    }
-    .status-row span:nth-child(1),
-    .status-row span:nth-child(2) {
-        font-weight: 500;
-    }
-    
+/* Mobile (<= 480px) */
+@media (max-width: 480px) {
+  /* TODO: ให้ nav เรียงแนวตั้ง, ลดฟอนต์, card เต็มความกว้าง */
 }
