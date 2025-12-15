@@ -1,5 +1,8 @@
+
 /* ---------- login page ---------- */
-body {
+body {    
+            background-color: #925106;
+
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
@@ -63,6 +66,8 @@ body {
         .login-button:hover {
             background-color: #3f2710;
         }
+        
+        
 
 /* ---------- 9. Responsive (มือถือ/จอเล็ก) ---------- */
 
