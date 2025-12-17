@@ -1,23 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบฟอร์มกรอกยื่นเสนอกิจกรรม</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <title>แบบฟอร์มยื่นเสนอกิจกรรม</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-    <h2 class="display-1">Form Event</h2>
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">ชื่อกิจกรรมที่ต้องการจัด</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="กรุณาตั้งชื่อให้เหมาะสม">
+
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <!-- กล่องฟอร์ม -->
+        <div class="card shadow border-0 mx-auto" style="max-width: 700px;">
+
+            <!-- หัวข้อ -->
+            <div class="card-header bg-primary text-white text-center">
+                <h2 class="mb-0">แบบฟอร์มยื่นเสนอกิจกรรม</h2>
+            </div>
+
+            <div class="card-body p-4">
+
+                <!-- ชื่อกิจกรรม -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        ชื่อกิจกรรมที่ต้องการจัด
+                    </label>
+                    <input type="text" class="form-control"
+                           placeholder="กรุณาตั้งชื่อกิจกรรมให้เหมาะสม">
+                </div>
+
+                <!-- รายละเอียด -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">
+                        รายละเอียดกิจกรรม
+                    </label>
+                    <textarea class="form-control" rows="4"
+                              placeholder="เช่น สถานที่จัด / วันเวลา / ผู้รับผิดชอบ"></textarea>
+                </div>
+
+                <!-- ปุ่ม -->
+                <div class="d-flex justify-content-end gap-3">
+                    <!-- ปุ่มยกเลิก (ไปหน้าอื่น) -->
+                    <a href="index.html" class="btn btn-outline-danger" >
+                        ยกเลิก
+                    </a>
+
+                    <!-- ปุ่มส่ง -->
+                    <a href="index.html" class="btn btn-success px-4">
+                        ส่งแบบฟอร์ม
+                    </a>
+                </div>
+
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">รายละเอียดกิจกรรม</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="กรุณากรอกให้ละเอียดเช่น สถานที่จัด/วันเวลา" rows="3" ></textarea>
-        </div>
-        <button type="button" class="btn btn-success">ส่งแบบฟอร์ม</button>
-        <button type="button" class="btn btn-outline-danger">ยกเลิกแบบฟอร์ม</button>
+    </div>
+
 </body>
 </html>
