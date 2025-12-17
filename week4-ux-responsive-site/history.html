@@ -1,44 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</head>     
+    <title>Login Page</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-light">
 
-    <div class="container py-5">
+<body class="login-bg">
 
-        <div class="card shadow-sm mx-auto text-center"
-             style="max-width: 500px;">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+        <div class="card login-card shadow-lg border-0">
 
             <div class="card-body p-4">
 
-                <!-- รูป -->
-                <img src="https://i.pinimg.com/474x/43/05/40/43054010232004874582f6371682129b.jpg"
-                     class="img-fluid mb-3"
-                     style="max-width: 180px;"
-                     alt="ไม่มีข้อมูลกิจกรรม">
+                <!-- Logo -->
+                <div class="text-center mb-3">
+                    <img src="/week4-ux-responsive-site/Image/logo.png"
+                         width="90"
+                         class="mb-2"
+                         alt="logormu">
+                </div>
 
-                <!-- ข้อความ -->
-                <h4 class="fw-bold text-secondary">
-                    คุณยังไม่เคยเข้าร่วมกิจกรรมอะไรเลย
+                <!-- Title -->
+                <h4 class="text-center fw-bold mb-4">
+                    Login to Your Account
                 </h4>
 
-                <p class="text-muted mt-2">
-                    เมื่อคุณเข้าร่วมกิจกรรม ข้อมูลจะแสดงที่หน้านี้
-                </p>
+                <!-- Form -->
+                <form action="index.html" method="POST">
 
-                <!-- ปุ่มกลับ -->
-                <a href="index.html" class="btn btn-primary mt-3 px-4">
-                    กลับหน้าแรก
-                </a>
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Enter your username"
+                               required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Password</label>
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Enter your password"
+                               required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Login
+                    </button>
+
+                </form>
 
             </div>
         </div>
     </div>
+
 </body>
 </html>
