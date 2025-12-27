@@ -81,3 +81,7 @@ body {
     background-color: #ecf0f1;
   }
   
+  .completed span {
+  text-decoration: line-through;
+  color: gray;
+}
