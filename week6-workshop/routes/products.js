@@ -64,8 +64,8 @@ router.get('/:id', async (req, res) => {
         const products = await readProducts();
         const id = parseInt(req.params.id);
         
-        // TODO: ค้นหา product ที่มี id ตรงกับที่ส่งมา
-        const product = /* เติมโค้ดตรงนี้ */ jsonData.products.find(p => p.id === id);
+        // TODO: ค้นหา product ที่มี id ตรงกับที่ส่งมา /* เติมโค้ดตรงนี้ */ 
+        const product = products.find(p => p.id === id);
         
         if (!product) {
             return res.status(404).json({
