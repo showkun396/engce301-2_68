@@ -1,7 +1,7 @@
 {
-  "name": "week7-workshop",
+  "name": "week7-lab",
   "version": "1.0.0",
-  "description": "SQLite + Layered Architecture Workshop",
+  "description": "Library Management System API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
