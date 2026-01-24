@@ -54,38 +54,39 @@ class TaskService {
     /**
      * อัพเดท task พร้อมกฎทางธุรกิจ
      */
-    async updateTask(id, updates) {
-        // ตรวจสอบว่า task มีอยู่จริง
-        const existingTask = await this.getTaskById(id);
+        async updateTask(id, updates) {
+            // ตรวจสอบว่า task มีอยู่จริง
+            const existingTask = await this.getTaskById(id);
 
-        // ตรวจสอบการอัพเดท
-        if (updates.title !== undefined) {
-            const tempTask = new Task({ ...existingTask, ...updates });
-            const validation = tempTask.isValid();
-            if (!validation.valid) {
-                throw new Error(`ข้อมูลไม่ถูกต้อง: ${validation.errors.join(', ')}`);
+            // ตรวจสอบการอัพเดท
+            if (updates.title !== undefined) {
+                const tempTask = new Task({ ...existingTask, ...updates });
+                const validation = tempTask.isValid();
+                if (!validation.valid) {
+                    throw new Error(`ข้อมูลไม่ถูกต้อง: ${validation.errors.join(', ')}`);
+                }
             }
+
+            // กฎทางธุรกิจ: ไม่สามารถเปลี่ยนจาก DONE กลับไปเป็น TODO
+            if (existingTask.status === 'DONE' && updates.status === 'TODO') {
+                throw new Error('ไม่สามารถเปลี่ยนงานที่เสร็จแล้วกลับไปเป็น TODO ได้');
+            }
+
+            // กฎทางธุรกิจ: HIGH priority ต้องมี description
+            if (updates.priority === 'HIGH' && !existingTask.description && !updates.description) {
+                throw new Error('งานลำดับความสำคัญสูงต้องมีรายละเอียด');
+            }
+
+            const updatedTask = await taskRepository.update(id, updates);
+            
+
+            // บันทึก log เมื่อเปลี่ยน status
+            if (updates.status && updates.status !== existingTask.status) {
+                console.log(`📝 เปลี่ยนสถานะ task ${id}: ${existingTask.status} → ${updates.status}`);
+            }
+
+            return updatedTask;
         }
-
-        // กฎทางธุรกิจ: ไม่สามารถเปลี่ยนจาก DONE กลับไปเป็น TODO
-        if (existingTask.status === 'DONE' && updates.status === 'TODO') {
-            throw new Error('ไม่สามารถเปลี่ยนงานที่เสร็จแล้วกลับไปเป็น TODO ได้');
-        }
-
-        // กฎทางธุรกิจ: HIGH priority ต้องมี description
-        if (updates.priority === 'HIGH' && !existingTask.description && !updates.description) {
-            throw new Error('งานลำดับความสำคัญสูงต้องมีรายละเอียด');
-        }
-
-        const updatedTask = await taskRepository.update(id, updates);
-
-        // บันทึก log เมื่อเปลี่ยน status
-        if (updates.status && updates.status !== existingTask.status) {
-            console.log(`📝 เปลี่ยนสถานะ task ${id}: ${existingTask.status} → ${updates.status}`);
-        }
-
-        return updatedTask;
-    }
 
     /**
      * ลบ task พร้อมกฎทางธุรกิจ

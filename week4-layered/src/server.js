@@ -8,11 +8,14 @@ const errorHandler = require('./middleware/errorHandler');
 
 // 🚩 จุดสำคัญ: สร้าง Route ตรงนี้เลยถ้ายังไม่มีไฟล์ routes แยก
 const router = express.Router();
-router.get('/', taskController.getAllTasks);
+
 router.get('/stats', taskController.getStatistics);
+router.get('/', taskController.getAllTasks);
 router.get('/:id', taskController.getTaskById);
 router.post('/', taskController.createTask);
 router.put('/:id', taskController.updateTask);
+router.patch('/:id/next-status', taskController.moveToNextStatus); // PATCH ตัวนี้ path ไม่ตรงกับที่หน้าบ้านเรียก
+router.patch('/:id', taskController.updateTask);
 router.delete('/:id', taskController.deleteTask);
 router.patch('/:id/next-status', taskController.moveToNextStatus);
 
