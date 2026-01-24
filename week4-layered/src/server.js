@@ -1,16 +1,27 @@
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
-const database = require('../database/connection');
-const taskController = require('./controllers/taskController');
+const path = require('path'); // เพิ่ม path module
+const database = require('../database/connection'); // ถอย 1 ชั้นไปหา database
+const taskController = require('./controllers/taskController'); // อยู่ใน src เหมือนกัน ใช้ ./
 const errorHandler = require('./middleware/errorHandler');
-const logger = require('./utils/logger');
+//const logger = require('./utils/logger');
+
+// 🚩 จุดสำคัญ: สร้าง Route ตรงนี้เลยถ้ายังไม่มีไฟล์ routes แยก
+const router = express.Router();
+router.get('/', taskController.getAllTasks);
+router.get('/stats', taskController.getStatistics);
+router.get('/:id', taskController.getTaskById);
+router.post('/', taskController.createTask);
+router.put('/:id', taskController.updateTask);
+router.delete('/:id', taskController.deleteTask);
+router.patch('/:id/next-status', taskController.moveToNextStatus);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+// ชี้ไปที่โฟลเดอร์ public ที่อยู่นอก src
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Logging middleware
@@ -19,44 +30,12 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes - Statistics (ต้องอยู่ก่อน :id routes)
-app.get('/api/tasks/stats', taskController.getStatistics.bind(taskController));
+// 🚩 เรียกใช้ Router ที่เราทำไว้ข้างบน
+app.use('/api/tasks', router);
 
-// Routes - CRUD
-app.get('/api/tasks', taskController.getAllTasks.bind(taskController));
-app.get('/api/tasks/:id', taskController.getTaskById.bind(taskController));
-app.post('/api/tasks', taskController.createTask.bind(taskController));
-app.put('/api/tasks/:id', taskController.updateTask.bind(taskController));
-app.delete('/api/tasks/:id', taskController.deleteTask.bind(taskController));
-
-// Routes - Special actions
-app.patch('/api/tasks/:id/next-status', taskController.moveToNextStatus.bind(taskController));
-
-// Error handling middleware (ต้องอยู่สุดท้าย)
+// Error Handler (ต้องอยู่ล่างสุด)
 app.use(errorHandler);
 
-// เริ่ม server
-async function startServer() {
-    try {
-        // เชื่อมต่อฐานข้อมูล
-        await database.connect();
-        
-        // เริ่ม Express server
-        app.listen(PORT, () => {
-            console.log(`🚀 เซิร์ฟเวอร์ทำงานที่ http://localhost:${PORT}`);
-            console.log(`📊 Environment: ${process.env.NODE_ENV}`);
-        });
-    } catch (error) {
-        logger.error('ไม่สามารถเริ่มเซิร์ฟเวอร์ได้:', error);
-        process.exit(1);
-    }
-}
-
-// จัดการการปิดอย่างถูกต้อง
-process.on('SIGINT', async () => {
-    logger.info('กำลังปิดเซิร์ฟเวอร์...');
-    await database.close();
-    process.exit(0);
+app.listen(PORT, () => {
+    console.log(`🚀 เซิร์ฟเวอร์ทำงานที่ http://localhost:${PORT}`);
 });
-
-startServer();

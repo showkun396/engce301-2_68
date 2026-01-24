@@ -1,8 +1,24 @@
-// ตัวอย่าง src/utils/logger.js ที่ถูกต้อง
-const winston = require('winston');
+/**
+ * Logger utility
+ */
+class Logger {
+    info(message, ...args) {
+        console.log(`ℹ️  [INFO] ${message}`, ...args);
+    }
 
-const logger = winston.createLogger({
-    transports: [new winston.transports.Console()]
-});
+    error(message, ...args) {
+        console.error(`❌ [ERROR] ${message}`, ...args);
+    }
 
-module.exports = logger; // ต้องส่งออกแบบนี้เพื่อให้ใช้ logger.info ได้
+    warn(message, ...args) {
+        console.warn(`⚠️  [WARN] ${message}`, ...args);
+    }
+
+    debug(message, ...args) {
+        if (process.env.LOG_LEVEL === 'debug') {
+            console.log(`🐛 [DEBUG] ${message}`, ...args);
+        }
+    }
+}
+
+module.exports = new Logger();

@@ -24,7 +24,7 @@ class TaskRepository {
         sql += ' ORDER BY created_at DESC';
 
         const rows = await database.all(sql, params);
-        return rows.map(row => new Task(row));
+        return rows || [];
     }
 
     /**
@@ -33,9 +33,9 @@ class TaskRepository {
      * @returns {Promise<Task|null>}
      */
     async findById(id) {
-        const sql = 'SELECT * FROM tasks WHERE id = ?';
-        const row = await database.get(sql, [id]);
-        return row ? new Task(row) : null;
+    const sql = 'SELECT * FROM tasks WHERE id = ?';
+    const row = await database.get(sql, [id]);
+    return row || null; // ส่ง row ที่เป็น object ธรรมดากลับไป
     }
 
     /**

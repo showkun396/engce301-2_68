@@ -8,7 +8,7 @@ class TaskController {
     async getAllTasks(req, res, next) {
         try {
             const filters = {};
-            
+
             if (req.query.status) {
                 filters.status = req.query.status.toUpperCase();
             }
@@ -17,12 +17,12 @@ class TaskController {
             }
 
             const tasks = await taskService.getAllTasks(filters);
-            
-            res.json({
-                success: true,
-                data: tasks,
-                count: tasks.length
-            });
+
+            console.log("--- DEBUG START ---");
+            console.log("Tasks content:", tasks);
+
+            res.json(tasks);
+
         } catch (error) {
             next(error);
         }
@@ -35,7 +35,7 @@ class TaskController {
     async getTaskById(req, res, next) {
         try {
             const id = parseInt(req.params.id);
-            
+
             if (isNaN(id)) {
                 return res.status(400).json({
                     success: false,
@@ -44,11 +44,9 @@ class TaskController {
             }
 
             const task = await taskService.getTaskById(id);
-            
-            res.json({
-                success: true,
-                data: task
-            });
+
+            res.json(task);
+
         } catch (error) {
             if (error.message.includes('ไม่พบ')) {
                 return res.status(404).json({
@@ -74,14 +72,11 @@ class TaskController {
             };
 
             const task = await taskService.createTask(taskData);
-            
-            res.status(201).json({
-                success: true,
-                data: task,
-                message: 'สร้างงานสำเร็จ'
-            });
+
+            res.status(201).json(task);
+
         } catch (error) {
-            if (error.message.includes('ข้อมูลไม่ถูกต้อง') || 
+            if (error.message.includes('ข้อมูลไม่ถูกต้อง') ||
                 error.message.includes('ต้องมีรายละเอียด')) {
                 return res.status(400).json({
                     success: false,
@@ -99,7 +94,7 @@ class TaskController {
     async updateTask(req, res, next) {
         try {
             const id = parseInt(req.params.id);
-            
+
             if (isNaN(id)) {
                 return res.status(400).json({
                     success: false,
@@ -114,12 +109,9 @@ class TaskController {
             if (req.body.priority !== undefined) updates.priority = req.body.priority;
 
             const task = await taskService.updateTask(id, updates);
-            
-            res.json({
-                success: true,
-                data: task,
-                message: 'อัพเดทงานสำเร็จ'
-            });
+
+            res.json(task);
+
         } catch (error) {
             if (error.message.includes('ไม่พบ')) {
                 return res.status(404).json({
@@ -127,7 +119,7 @@ class TaskController {
                     error: error.message
                 });
             }
-            if (error.message.includes('ข้อมูลไม่ถูกต้อง') || 
+            if (error.message.includes('ข้อมูลไม่ถูกต้อง') ||
                 error.message.includes('ไม่สามารถ')) {
                 return res.status(400).json({
                     success: false,
@@ -145,31 +137,24 @@ class TaskController {
     async deleteTask(req, res, next) {
         try {
             const id = parseInt(req.params.id);
-            
+
             if (isNaN(id)) {
-                return res.status(400).json({
-                    success: false,
-                    error: 'ID ไม่ถูกต้อง'
-                });
+                return res.status(400).json({ error: 'ID ไม่ถูกต้อง' });
             }
 
             await taskService.deleteTask(id);
-            
-            res.json({
-                success: true,
-                message: 'ลบงานสำเร็จ'
-            });
+
+            // ✅ ปรับให้ส่งข้อมูลแบบเรียบง่ายที่สุด 
+            // หรือจะส่งแค่ res.status(204).send(); ก็ได้ครับ (เป็นมาตรฐานที่นิยม)
+            res.json({ id });
+
         } catch (error) {
             if (error.message.includes('ไม่พบ')) {
-                return res.status(404).json({
-                    success: false,
-                    error: error.message
-                });
+                return res.status(404).json({ error: error.message });
             }
             next(error);
         }
     }
-
     /**
      * GET /api/tasks/stats
      * ดึงสถิติ tasks
@@ -177,11 +162,9 @@ class TaskController {
     async getStatistics(req, res, next) {
         try {
             const stats = await taskService.getStatistics();
-            
-            res.json({
-                success: true,
-                data: stats
-            });
+
+            res.json(stats);
+
         } catch (error) {
             next(error);
         }
@@ -194,7 +177,7 @@ class TaskController {
     async moveToNextStatus(req, res, next) {
         try {
             const id = parseInt(req.params.id);
-            
+
             if (isNaN(id)) {
                 return res.status(400).json({
                     success: false,
@@ -203,12 +186,9 @@ class TaskController {
             }
 
             const task = await taskService.moveToNextStatus(id);
-            
-            res.json({
-                success: true,
-                data: task,
-                message: 'เปลี่ยนสถานะงานสำเร็จ'
-            });
+
+            res.json(task);
+
         } catch (error) {
             if (error.message.includes('ไม่พบ')) {
                 return res.status(404).json({
