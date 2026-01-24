@@ -32,8 +32,9 @@ async function fetchTasks() {
         }
         
         const data = await response.json();
-        allTasks = data.tasks;
+        allTasks = Array.isArray(data) ? data : (data.tasks || []);
         renderTasks();
+
     } catch (error) {
         console.error('Error fetching tasks:', error);
         alert('❌ Failed to load tasks. Please refresh the page.');
@@ -59,7 +60,7 @@ async function createTask(taskData) {
         }
         
         const data = await response.json();
-        allTasks.unshift(data.task); // Add to beginning
+        allTasks.unshift(data); // Add to beginning
         renderTasks();
         
         // Reset form
@@ -96,7 +97,7 @@ async function updateTaskStatus(taskId, newStatus) {
         // Update local state
         const index = allTasks.findIndex(t => t.id === taskId);
         if (index !== -1) {
-            allTasks[index] = data.task;
+            allTasks[index] = data;
         }
         
         renderTasks();
