@@ -40,5 +40,5 @@ app.use('/api/tasks', router);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-    console.log(`🚀 เซิร์ฟเวอร์ทำงานที่ http://localhost:${PORT}`);
+    console.log(`🚀 เซิร์ฟเวอร์ทำงานแล้วที่ http://localhost:${PORT}`);
 });
